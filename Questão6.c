@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 // Prototipando a função de substituição
-string substitute(string text, string key);
+string substitute(string texto, string chave);
 
 // Função principal
 int main(int argc, string argv[])
@@ -12,65 +12,65 @@ int main(int argc, string argv[])
     // Verifica se há exatamente 2 argumentos (o nome do programa e a chave)
     if (argc != 2)
     {
-        printf("Usage: ./substitution key\n");
+        printf("Usage: ./substituiçao chave\n");
         return 1;
     }
 
     string key = argv[1];
 
     // Verifica se a chave tem exatamente 26 caracteres
-    if (strlen(key) != 26)
+    if (strlen(chave) != 26)
     {
-        printf("Key must contain 26 characters.\n");
+        printf("A chave deve conter 26 caracteres.\n");
         return 1;
     }
 
     // Verifica se a chave contém apenas caracteres alfabéticos e se são únicos
-    bool used[26] = {false};  // Array para rastrear caracteres já usados
+    bool usado[26] = {false};  // Array para rastrear caracteres já usados
     for (int i = 0; i < 26; i++)
     {
-        if (!isalpha(key[i]))
+        if (!isalpha(chave[i]))
         {
-            printf("Key must only contain alphabetic characters.\n");
+            printf("A chave deve conter apenas caracteres alfabéticos.\n");
             return 1;
         }
         
-        int index = tolower(key[i]) - 'a';
+        int index = tolower(chave[i]) - 'a';
         if (used[index])
         {
-            printf("Key must not contain repeated characters.\n");
+            printf("A chave não deve conter caracteres repetidos.\n");
             return 1;
         }
-        used[index] = true;
+        usado[index] = true;
     }
 
     // Obtém o texto a ser criptografado do usuário
-    string plaintext = get_string("plaintext: ");
+    string plaintexto = get_string("plaintexto: ");
 
     // Chama a função de substituição e imprime o texto criptografado
-    string ciphertext = substitute(plaintext, key);
-    printf("ciphertext: %s\n", ciphertext);
+    string ciphertexto = substitute(plaintexto, chave);
+    printf("ciphertexto: %s\n", ciphertexto);
 
     return 0;
 }
 
 // Função que realiza a substituição de acordo com a chave fornecida
-string substitute(string text, string key)
+string substitute(string texto, string chave)
 {
     // Itera sobre cada caractere do texto
-    for (int i = 0; text[i] != '\0'; i++)
+    for (int i = 0; texto[i] != '\0'; i++)
     {
-        if (isalpha(text[i]))
+        if (isalpha(texto[i]))
         {
-            if (isupper(text[i]))
+            if (isupper(texto[i]))
             {
-                text[i] = toupper(key[text[i] - 'A']);
+                text[i] = toupper(chave[texto[i] - 'A']);
             }
             else
             {
-                text[i] = tolower(key[text[i] - 'a']);
+                texto[i] = tolower(chave[texto[i] - 'a']);
             }
         }
     }
-    return text;
+    return texto;
 }
